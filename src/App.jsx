@@ -14,7 +14,7 @@ class IssueRow extends React.Component {
     return(
       <tr>
         <td style={borderedStyle}>{this.props.issue_id}</td>
-        <td style={borderedStyle}>{this.props.issue_title}</td>
+        <td style={borderedStyle}>{this.props.children}</td>
       </tr>
     );
   }
@@ -32,8 +32,8 @@ class IssueTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          <IssueRow issue_id={1} issue_title='First issue' />
-          <IssueRow issue_id={2} issue_title='Second issue' />
+          <IssueRow issue_id={1}>First issue</IssueRow>
+          <IssueRow issue_id={2}>Second issue</IssueRow>
         </tbody>
       </table>
     );

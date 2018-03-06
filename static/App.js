@@ -57,7 +57,7 @@ var IssueRow = function (_React$Component2) {
         React.createElement(
           'td',
           { style: borderedStyle },
-          this.props.issue_title
+          this.props.children
         )
       );
     }
@@ -103,8 +103,16 @@ var IssueTable = function (_React$Component3) {
         React.createElement(
           'tbody',
           null,
-          React.createElement(IssueRow, { issue_id: 1, issue_title: 'First issue' }),
-          React.createElement(IssueRow, { issue_id: 2, issue_title: 'Second issue' })
+          React.createElement(
+            IssueRow,
+            { issue_id: 1 },
+            'First issue'
+          ),
+          React.createElement(
+            IssueRow,
+            { issue_id: 2 },
+            'Second issue'
+          )
         )
       );
     }
