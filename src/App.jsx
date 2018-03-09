@@ -49,9 +49,31 @@ class IssueRow extends React.Component {
 }
 
 class IssueAdd extends React.Component {
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    var form = document.forms.issueAdd;
+    this.props.createIssue({
+      owner: form.owner.value,
+      title: form.title.value,
+      status: 'New',
+      created: new Date(),
+    });
+    // Clear the form for the next input
+    form.owner.value = ''; form.title.value = '';
+  }
   render() {
     return(
-      <div>This is the placeholder for the Issue Add Entry Form.</div>
+      <div>
+        <form name='issueAdd' onSubmit={this.handleSubmit}>
+          <input type='text' name='owner' placeholder='Owner' />
+          <input type='text' name='title' placeholder='Title' />
+          <button>Add</button>
+        </form>
+      </div>
     );
   }
 }
@@ -68,20 +90,26 @@ const issues = [
 class IssueList extends React.Component {
   constructor() {
     super();
-    this.state = { issues: issues };
-    setTimeout(this.createTestIssue.bind(this), 2000);
+    this.state = { issues: [] };
+    this.createIssue = this.createIssue.bind(this);
   }
+
+  componentDidMount() {
+    this.loadData();
+  }
+  loadData() {
+    setTimeout(() => {
+      this.setState({issues: issues})
+    }, 500);
+  }
+
   createIssue(newIssue) {
     const newIssues = this.state.issues.slice();
     newIssue.id = this.state.issues.length + 1;
     newIssues.push(newIssue);
     this.setState({ issues: newIssues });
   }
-  createTestIssue() {
-    this.createIssue({
-      status: 'New', owner: 'Lucia', created: new Date(), title: 'Third issue',
-    });
-  }
+
   render() {
     return(
       <div>
@@ -90,7 +118,7 @@ class IssueList extends React.Component {
         <hr />
         <IssueTable issues={this.state.issues} />
         <hr />
-        <IssueAdd />
+        <IssueAdd createIssue={this.createIssue} />
       </div>
     );
   }
