@@ -54,7 +54,6 @@ class IssueAdd extends React.Component {
       status: 'New',
       created: new Date(),
     });
-    // Clear the form for the next input
     form.owner.value = ''; form.title.value = '';
   }
   render() {

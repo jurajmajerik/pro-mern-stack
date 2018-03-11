@@ -156,7 +156,6 @@ var IssueAdd = function (_React$Component2) {
         status: 'New',
         created: new Date()
       });
-      // Clear the form for the next input
       form.owner.value = '';form.title.value = '';
     }
   }, {
