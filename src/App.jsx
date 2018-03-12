@@ -47,7 +47,7 @@ class IssueAdd extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    var form = document.forms.issueAdd;
+    const form = document.forms.issueAdd;
     this.props.createIssue({
       owner: form.owner.value,
       title: form.title.value,
@@ -90,7 +90,7 @@ class IssueList extends React.Component {
   }
   loadData() {
     setTimeout(() => {
-      this.setState({issues: issues})
+      this.setState({ issues: issues })
     }, 500);
   }
 
