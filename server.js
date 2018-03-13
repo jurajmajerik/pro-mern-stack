@@ -25,11 +25,10 @@ app.post('/api/issues', (req, res) => {
   newIssue.created = new Date();
   if (!newIssue.status) {
     newIssue.status = 'New';
-
-    issues.push(newIssue);
-
-    res.json(newIssue);
   }
+  issues.push(newIssue);
+
+  res.json(newIssue);
 });
 
 app.listen(3000, function() {
