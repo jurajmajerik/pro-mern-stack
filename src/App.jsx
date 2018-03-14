@@ -89,23 +89,23 @@ class IssueList extends React.Component {
     this.loadData();
   }
   loadData() {
-    fetch('/api/issues')
-    .then(response => response.json())
-    .then(data => {
-      console.log('Total count of records:', data._metadata.total_count);
-      data.records.forEach(issue => {
-        issue.created = new Date(issue.created);
-        if (issue.completionDate)
-          issue.completionDate = new Date(issue.completionDate);
-      });
-      this.setState({ issues: data.records });
-    }).catch(err => {
-      console.log(err);
-    });
+    // fetch('/api/issues').then(response =>
+    //   response.json()
+    // ).then(data => {
+    //   console.log("Total count of records:", data._metadata.total_count);
+    //   data.records.forEach(issue => {
+    //     issue.created = new Date(issue.created);
+    //     if (issue.completionDate)
+    //       issue.completionDate = new Date(issue.completionDate);
+    //   });
+    //   this.setState({ issues: data.records });
+    // }).catch(err => {
+    //   console.log(err);
+    // });
 
-    // setTimeout(() => {
-    //   this.setState({ issues: issues })
-    // }, 500);
+    setTimeout(() => {
+      this.setState({ issues: issues })
+    }, 500);
   }
 
   createIssue(newIssue) {
