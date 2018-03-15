@@ -69,15 +69,6 @@ class IssueAdd extends React.Component {
   }
 }
 
-const issues = [
-  {
-    id: 1, status: 'Open', owner: 'Juraj', created: new Date('2016-08-15'), effort: 5, completionDate: undefined, title: 'First issue',
-  },
-  {
-    id: 2, status: 'Assigned', owner: 'Kate', created: new Date('2016-08-16'), effort: 14, completionDate: new Date('2016-08-30'), title: 'Second issue',
-  },
-];
-
 class IssueList extends React.Component {
   constructor() {
     super();
@@ -89,24 +80,19 @@ class IssueList extends React.Component {
     this.loadData();
   }
   loadData() {
-    // fetch('/api/issues').then(response =>
-    //   response.json()
-    // ).then(data => {
-    //   console.log("Total count of records:", data._metadata.total_count);
-    //   data.records.forEach(issue => {
-    //     issue.created = new Date(issue.created);
-    //     if (issue.completionDate)
-    //       issue.completionDate = new Date(issue.completionDate);
-    //   });
-    //   this.setState({ issues: data.records });
-    // }).catch(err => {
-    //   console.log(err);
-    // });
-
-    setTimeout(() => {
-      this.setState({ issues: issues })
-    }, 500);
-  }
+    fetch('/api/issues').then(response =>
+      response.json()
+    ).then(data => {
+      console.log("Total count of records:", data._metadata.total_count);
+      data.records.forEach(issue => {
+        issue.created = new Date(issue.created);
+        if (issue.completionDate)
+          issue.completionDate = new Date(issue.completionDate);
+      });
+      this.setState({ issues: data.records });
+    }).catch(err => {
+      console.log(err);
+    });
 
   createIssue(newIssue) {
     const newIssues = this.state.issues.slice();
