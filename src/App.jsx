@@ -79,6 +79,7 @@ class IssueList extends React.Component {
   componentDidMount() {
     this.loadData();
   }
+
   loadData() {
     fetch('/api/issues').then(response =>
       response.json()
@@ -93,6 +94,7 @@ class IssueList extends React.Component {
     }).catch(err => {
       console.log(err);
     });
+  }
 
   createIssue(newIssue) {
     const newIssues = this.state.issues.slice();
