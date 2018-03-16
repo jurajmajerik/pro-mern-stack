@@ -14,7 +14,7 @@ const issues = [
   {
     id: 2, status: 'Assigned', owner: 'Kate',
     created: new Date('2016-08-16'), effort: 14, completionDate: new Date('2017-08-30'),
-    title: 'Second',
+    title: 'Second Issue',
   },
 ];
 
