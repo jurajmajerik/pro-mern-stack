@@ -45,6 +45,7 @@ const issueFieldType = {
 function validateIssue(issue) {
   for (const field in issueFieldType) {
     const type = issueFieldType[field];
+    // If 'type' is falsy, delete the whole field from 'issue'
     if (!type) {
       delete issue[field];
     } else if (type === 'required' && !issue[field]) {
