@@ -1,5 +1,8 @@
+'use strict'
+
 const express = require('express');
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 app.use(express.static('static'));
@@ -8,19 +11,24 @@ app.use(bodyParser.json());
 const issues = [
   {
     id: 1, status: 'Open', owner: 'Juraj',
-    created: new Date('2017-08-15'), effort: 5, completionDate: undefined,
-    title: 'First issue',
+    created: new Date('2016-08-15'), effort: 5, completionDate: undefined,
+    title: 'First Issue',
   },
   {
     id: 2, status: 'Assigned', owner: 'Kate',
-    created: new Date('2016-08-16'), effort: 14, completionDate: new Date('2017-08-30'),
+    created: new Date('2016-08-16'), effort: 14, completionDate: new Date('2016-08-30'),
     title: 'Second Issue',
   },
 ];
 
 app.get('/api/issues', (req, res) => {
-  const metadata = { total_count: issues.length };
-  res.json({ _metadata: metadata, records: issues });
+  db.collection('issues').find().toArray().then(issues => {
+    const metadata = { total_count: issues.length };
+    res.json({ _metadata: metadata, records: issues })
+  }).catch(error => {
+    console.log(error);
+    res.status(500).json({ message: `Internal Server Error: ${error}` });
+  });
 });
 
 const validIssueStatus = {
@@ -45,7 +53,6 @@ const issueFieldType = {
 function validateIssue(issue) {
   for (const field in issueFieldType) {
     const type = issueFieldType[field];
-    // If 'type' is falsy, delete the whole field from 'issue'
     if (!type) {
       delete issue[field];
     } else if (type === 'required' && !issue[field]) {
@@ -66,16 +73,22 @@ app.post('/api/issues', (req, res) => {
   if (!newIssue.status)
     newIssue.status = 'New';
 
-  const err = validateIssue(newIssue);
+  const err = validateIssue(newIssue)
   if (err) {
-    res.status(422).json({ message: `Invalid request: ${err}` });
+    res.status(422).json({ message: `Invalid requrest: ${err}` });
     return;
   }
-
   issues.push(newIssue);
+
   res.json(newIssue);
 });
 
-app.listen(3000, () => {
-  console.log('App started on port 3000');
+let db;
+MongoClient.connect('mongodb://localhost/issuetracker').then(connection => {
+  db = connection;
+  app.listen(3000, () => {
+    console.log('App started on port 3000');
+  });
+}).catch(error => {
+  console.log('ERROR:', error);
 });

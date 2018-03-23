@@ -34,6 +34,11 @@ function testWithPromises() {
   });
 }
 
+function testWithGenerator() {
+  const co = require('co');
+  // Code here
+}
+
 function usage() {
   console.log('Usage: ');
   console.log('node', __filename, '<option>');
