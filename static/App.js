@@ -209,6 +209,7 @@ var IssueList = function (_React$Component3) {
         if (response.ok) {
           response.json().then(function (data) {
             console.log("Total count of records:", data._metadata.total_count);
+            console.log(data.records);
             data.records.forEach(function (issue) {
               issue.created = new Date(issue.created);
               if (issue.completionDate) issue.completionDate = new Date(issue.completionDate);

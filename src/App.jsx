@@ -85,6 +85,7 @@ class IssueList extends React.Component {
       if (response.ok) {
         response.json().then(data => {
           console.log("Total count of records:", data._metadata.total_count);
+          console.log(data.records);
           data.records.forEach(issue => {
             issue.created = new Date(issue.created);
             if (issue.completionDate)
