@@ -28,6 +28,7 @@ app.post('/api/issues', (req, res) => {
   const err = Issue.validateIssue(newIssue);
   if (err) {
     res.status(422).json({ message: `Invalid request: ${err}` });
+    // This 'return' terminates the whole post() function
     return;
   }
 
