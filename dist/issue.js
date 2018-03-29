@@ -1,10 +1,15 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 const validIssueStatus = {
   New: true,
   Open: true,
   Assigned: true,
   Fixed: true,
   Verified: true,
-  Closed: true,
+  Closed: true
 };
 
 const issueFieldType = {
@@ -13,7 +18,7 @@ const issueFieldType = {
   effort: 'optional',
   created: 'required',
   completionDate: 'optional',
-  title: 'required',
+  title: 'required'
 };
 
 function validateIssue(issue) {
@@ -26,12 +31,12 @@ function validateIssue(issue) {
     }
   }
 
-  if (!validIssueStatus[issue.status])
-    return `${issue.status} is not a valid status.`;
+  if (!validIssueStatus[issue.status]) return `${issue.status} is not a valid status.`;
 
   return null;
 }
 
-export default {
+exports.default = {
   validateIssue: validateIssue
 };
+//# sourceMappingURL=issue.js.map

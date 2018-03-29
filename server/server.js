@@ -1,9 +1,11 @@
-'use strict';
+import SourceMapSupport from 'source-map-support';
+SourceMapSupport.install();
+import 'babel-polyfill';
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
-const Issue = require('./issue.js');
+import express from 'express';
+import bodyParser from 'body-parser';
+import { MongoClient } from 'mongodb';
+import Issue from './issue.js';
 
 const app = express();
 app.use(express.static('static'));
@@ -28,13 +30,13 @@ app.post('/api/issues', (req, res) => {
   const err = Issue.validateIssue(newIssue);
   if (err) {
     res.status(422).json({ message: `Invalid request: ${err}` });
-    // This 'return' terminates the whole post() function
     return;
   }
 
-  db.collection('issues').insertOne(newIssue).then(result => db.collection('issues').find({ _id: result.insertedId }).limit(1).next()).then(newIssue => {
+  db.collection('issues').insertOne(newIssue).then(result =>
+    db.collection('issues').find({ _id: result.insertedId }).limit(1).next()
+  ).then(newIssue => {
     res.json(newIssue);
-    // What is .limit(1)?
   }).catch(error => {
     console.log(error);
     res.status(500).json({ message: `Internal Server Error: ${error}` });
