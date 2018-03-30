@@ -26,8 +26,9 @@ function validateIssue(issue) {
     }
   }
 
-  if (!validIssueStatus[issue.status])
+  if (!validIssueStatus[issue.status]) {
     return `${issue.status} is not a valid status.`;
+  }
 
   return null;
 }
