@@ -54,7 +54,7 @@ app.post('/api/issues', (req, res) => {
     return;
   }
 
-  db.collection('issues').insertOne(newIssue).then(result => db.collection('issues').find({ _id: result.insertedId }).limit(1).next()).then(savedIssue => {
+  db.collection('issues').insertOne(_issue2.default.cleanupIssue(newIssue)).then(result => db.collection('issues').find({ _id: result.insertedId }).limit(1).next()).then(savedIssue => {
     res.json(savedIssue);
   }).catch(error => {
     console.log(error);
