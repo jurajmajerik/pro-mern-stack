@@ -20,6 +20,4 @@ const RoutedApp = () => (
 
 ReactDOM.render(<RoutedApp />, contentNode);
 
-if (module.hot) {
-  module.hot.accept();
-}
+if (module.hot) module.hot.accept();
