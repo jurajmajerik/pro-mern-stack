@@ -58,6 +58,7 @@ export default class IssueList extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log(`prevProps: ${prevProps.location.query.status}`);
     const oldQuery = prevProps.location.query;
     const newQuery = this.props.location.query;
     if (oldQuery.status === newQuery.status) {
@@ -67,6 +68,7 @@ export default class IssueList extends React.Component {
   }
 
   loadData() {
+    console.log(`Fetching: /api/issues${this.props.location.search}`);
     fetch(`/api/issues${this.props.location.search}`).then(response => {
       if (response.ok) {
         response.json().then(data => {
