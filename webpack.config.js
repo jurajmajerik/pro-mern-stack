@@ -30,7 +30,8 @@ module.exports = {
       '/api/*': {
         target: 'http://localhost:3000'
       }
-    }
+    },
+    historyApiFallback: true,
   },
   devtool: 'source-map'
 };
